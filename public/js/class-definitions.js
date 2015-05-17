@@ -121,10 +121,10 @@ var princess_leia = {
  */
 
  var domains = {
-  ["ycombinator"]: '198.41.190.47',
-  "laughingsquid": '162.159.277.97',
-  "slumlordhosting": '198.61.179.126',
-  "jsonformatter.curiousconcept.com": '104.28.5.70'
+  "ycombinator.com": "198.41.190.47",
+  "laughingsquid.com": "162.159.247.97",
+  "slumlordhosting.com": "198.61.179.126",
+  "jsonformatter.curiousconcept.com": "104.28.5.70"
  }
 
 
@@ -141,6 +141,15 @@ var princess_leia = {
  *   Konqueror  => "konqueror.org"
  *
  */
+
+ var browsers = {
+  Chromium: "google.com",
+  Safari: "apple.com",
+  Opera: "opera.com",
+  Firefox: "mozilla.org",
+  Sleipnir: "fenrir-inc.com",
+  Konqueror: "konqueror.org"
+ }
 
 
 /* Step 13
@@ -160,6 +169,18 @@ var princess_leia = {
  *
  */
 
+var rainbow = {
+  colors: {
+    red: "#F0280A",
+    orange: "#FF8800",
+    yellow: "#FFDD00",
+    green: "#51AB0C",
+    blue: "#1593ED",
+    indigo: "#5215ED",
+    violet: "#A915ED"
+  },
+  isDouble: true
+}
 
 /* Step 14
  *
@@ -175,6 +196,7 @@ var princess_leia = {
  *
  */
 
+var linuxFlavors = ["Gentoo", "Fedora", "Debian", "Slackware", "Red Hat", "Bieber Linux"];
 
 /* Step 15
  *
@@ -189,6 +211,7 @@ var princess_leia = {
  *
  */
 
+var DNA = ["nucleatides", "guanine", "adenine", "thymine", "cytosine"];
 
 /* Step 16
  *
@@ -202,6 +225,12 @@ var princess_leia = {
  *
  */
 
+var laptopCosts = {
+  MacBook: 1500,
+  Alienware: 2500,
+  HP: 499,
+  Surface: 320
+}
 
 /* Step 17
  *
@@ -218,6 +247,8 @@ var princess_leia = {
  *
  */
 
+ var livingOrganismClassification = ["Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species"];
+
 
 /* Step 18
  *
@@ -231,6 +262,8 @@ var princess_leia = {
  * "cvs"
  *
  */
+
+ var scmList = ["git", "svn", "mercurial", "bazaar", "cvs"];
 
 
 /* Step 19
@@ -251,6 +284,15 @@ var princess_leia = {
  *
  */
 
+ var beers = {
+  IPA: "Ale",
+  Lager: "Strong",
+  Heffeweisen: "German",
+  Stout: ["Thick", "Dark"],
+  Porter: "Bitter",
+  Ale: ["Light", "Golden"]
+ }
+
 
 /* Step 20
  *
@@ -260,6 +302,10 @@ var princess_leia = {
  * @return {String}
  *
  */
+
+ function sahara_river(){
+  return "Nile River";
+ }
 
 
 /* Step 21
@@ -273,6 +319,10 @@ var princess_leia = {
  *
  */
 
+ function addNumbers(x, y){
+  return x + y;
+ }
+
 
 /* Step 22
  *
@@ -285,6 +335,13 @@ var princess_leia = {
  * @return {Bool}
  *
  */
+
+ function installLinux(str){
+  if (linuxFlavors.indexOf(str) > -1){
+    return true;
+  }
+  return false;
+ }
 
 
 /* Step 23
@@ -304,6 +361,14 @@ var princess_leia = {
  * @return {Bool when False, String when True}
  *
  */
+
+ function drink(beer){
+    console.log(beers[beer]);
+    if (beers[beer].length > 1){
+      return "This " + beer + " is " + beers[beer][0] + " and " + beers[beer][1] + ".";
+    }
+      return "This " + beer + " is " + beers[beer] + ".";
+ }
 
 
 /* Step 24
