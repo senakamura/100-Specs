@@ -363,13 +363,13 @@ var laptopCosts = {
  */
 
  function drink(beer){
-    console.log(beers[beer]);
+    console.log(beer);
     if (beers[beer].length > 1){
       return "This " + beer + " is " + beers[beer][0] + " and " + beers[beer][1] + ".";
     }
       return "This " + beer + " is " + beers[beer] + ".";
  }
-
+s
 
 /* Step 24
  *
@@ -487,6 +487,9 @@ var laptopCosts = {
  *
  */
 
+var Pen = function(color){
+  this.write = color;
+}
 
 /* Step 31
  *
