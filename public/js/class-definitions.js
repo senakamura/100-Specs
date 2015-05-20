@@ -363,13 +363,15 @@ var laptopCosts = {
  */
 
  function drink(beer){
-    console.log(beer);
-    if (beers[beer].length > 1){
-      return "This " + beer + " is " + beers[beer][0] + " and " + beers[beer][1] + ".";
+    if (beer.indexOf(beers) > 0){
+      return "This " + beer + " is " + beers[beer] + " and " + beers[beer][1] + ".";
     }
+    if (beers[beer]){
       return "This " + beer + " is " + beers[beer] + ".";
+    }
+    return false;
  }
-s
+
 
 /* Step 24
  *
@@ -383,6 +385,12 @@ s
  *
  */
 
+ function browseURL(browser){
+    if (browsers[browser]){
+      return browsers[browser];
+    }
+    return false;
+ }
 
 /* Step 25
  *
@@ -393,6 +401,12 @@ s
  * @return {String}
  *
  */
+
+ function listLivingOrgClass(str){
+    var list = document.createElement('ul');
+    var item = document.createElement('li');
+    document.list.appendChild(item);
+ }
 
 
 /* Step 26
@@ -414,6 +428,13 @@ s
  * @return {String}
  *
  */
+
+ function favoritePlanet(planet){
+    if (planets.indexOf(planet) > -1){
+      return "I'm from " + planet + ", but I wish I could go to " + planets + ".";
+    }
+    return planet + " is not a planet!";
+ }
 
 
 /* Step 27
@@ -439,6 +460,22 @@ s
  *
  */
 
+ function Person(name, money, age, gender){
+  this.name = name;
+  this.money = money;
+  this.age = age;
+  this.gender = gender;
+
+  Person.prototype.spendMoney = function(x){
+    this.money -= x;
+  };
+  Person.prototype.earnMoney = function(x) {
+   this.money += x;
+  };
+ }
+
+
+
 
 /* Step 28
  *
@@ -452,6 +489,13 @@ s
  *
  */
 
+ function purchaseLaptop(laptop){
+  if (laptopCosts[laptop]){
+    return "" + laptopCosts[laptop] + "";
+  }
+  return -1;
+ }
+
 
 /* Step 29
  *
@@ -464,6 +508,13 @@ s
  * @return {Bool}
  *
  */
+
+ function canTalkAbout(club){
+  if (club !== "Fight Club"){
+    return true;
+  }
+  return false;
+ }
 
 
 /* Step 30
@@ -487,8 +538,12 @@ s
  *
  */
 
-var Pen = function(color){
-  this.write = color;
+function Pen (color){
+  this.color = color;
+
+  Pen.prototype.write = function(message){
+    return color + ": " + message;
+  }
 }
 
 /* Step 31
@@ -518,6 +573,22 @@ var Pen = function(color){
  *
  */
 
+function Garden(plantsTotal){
+  this.plantsTotal = plantsTotal;
+  this.isWatered = false;
+
+  Garden.prototype.water = function (){
+    return this.isWatered = true;
+  }
+  Garden.prototype.grow = function (){
+    if (this.isWatered == true){
+      return this.plantsTotal++;
+    }
+    if (this.isWatered == false){
+      return false;
+    }
+  }
+}
 
 /* Step 32
  *
@@ -535,6 +606,18 @@ var Pen = function(color){
  *   removePlanet
  *
  */
+
+ function SolarSystem(planet){
+  this.planets = [];
+
+  SolarSystem.prototype.addPlanet = function(){
+    this.planets.push(planet);
+  }
+
+  SolarSystem.prototype.removePlanet = function(){
+    this.planets.splice(planet, 1);
+  }
+ }
 
 
 /* Step 33
@@ -570,6 +653,33 @@ var Pen = function(color){
  *
  */
 
+ function PrincessLeia(name, money, age, gender){
+  Person.call(this, name, money, age, gender);
+  this.isInTrouble = null;
+ }
+
+  PrincessLeia.prototype = Object.create(Person.prototype);
+
+  PrincessLeia.prototype.shootsGun = function(){
+    this.isInTrouble = false;
+    return "Leia shoots her gun wildly";
+  };
+
+  PrincessLeia.prototype.getsInTrouble = function(){
+    this.isInTrouble = true;
+    return "Help me Obi-wan Kenobi, you're my only hope";
+  };
+
+  PrincessLeia.prototype.marries = function(x){
+    if (x === "Han Solo"){
+      return true;
+    }
+    if (x === "Luke Skywalker"){
+      return "Gross!";
+    }
+    return false;
+  };
+
 
 /* Step 34
  *
@@ -588,6 +698,18 @@ var Pen = function(color){
  *   staplePapers
  *
  */
+
+ function Stapler(color, maxPapers){
+  this.color = color;
+  this.maxPapers = maxPapers;
+
+  Stapler.prototype.staplePapers = function (x){
+    if (x <= maxPapers){
+      return true;
+    }
+    return false;
+  }
+ }
 
 
 /* Step 35
@@ -629,6 +751,33 @@ var Pen = function(color){
  *
  */
 
+ function Scientist(name, money, age, gender){
+  Person.call(this, name, money, age, gender);
+  this.disciplines = [];
+  this.discoveries = [];
+ }
+
+ Scientist.prototype = Object.create(Person.prototype);
+
+ Scientist.prototype.addDiscipline = function(x){
+  this.disciplines.push(x);
+  return this.disciplines;
+ }
+
+ Scientist.prototype.checkDiscipline = function(x){
+  if (this.disciplines.indexOf(x) > -1){
+    return true;
+  }
+  return false
+ }
+
+ Scientist.prototype.addDiscovery = function(x){
+  this.discoveries.push(x);
+  if (this.discoveries.length < 1){
+  return "I discovered " + this.discoveries[0] + " and " + this.discoveries[1] + ".";
+  }
+ }
+
 
 /* Step 36
  *
@@ -650,6 +799,15 @@ var Pen = function(color){
  *   rob
  *
  */
+
+ function BankAccount(balance, owner){
+  this.balance = balance;
+  this.owner = owner;
+
+  BankAccount.prototype.withdraw = function (){
+
+  }
+ }
 
 
 /* Step 37
@@ -824,6 +982,11 @@ var Pen = function(color){
  * @param {string} gender  male or female
  */
 
+ function Animal(species, gender){
+  this.species = species;
+  this.gender = gender;
+ }
+
 
 /**
  * Step 51
@@ -832,6 +995,11 @@ var Pen = function(color){
  * @param {string} make The vehicle's make
  * @param {string} model The vehicle's model
  */
+
+ function Vehicle(make, model){
+  this.make = make;
+  this.model = model;
+ }
 
 
 /**
@@ -844,6 +1012,13 @@ var Pen = function(color){
  *
  */
 
+ function Shape(sides){
+  if (this.sides < 3 || this.sides !== NaN){
+    this.sides = 0;
+  }
+  this.sides = sides;
+ }
+
 
 /**
  * Step 53
@@ -853,6 +1028,11 @@ var Pen = function(color){
  * @param {boolean} isOpen     Whether the box is opened or closed
  */
 
+ function Box(contents, status){
+  this.contents = contents;
+  this.isOpen = status;
+ }
+
 
 /**
  * Step 54
@@ -860,6 +1040,10 @@ var Pen = function(color){
  * Door class
  * @param {boolean} isOpen Whether the door is opened or closed
  */
+
+ function Door(status){
+  this.isOpen = status;
+ }
 
 
 /**
@@ -870,6 +1054,10 @@ var Pen = function(color){
  * @param {string} color The shoe color
  */
 
+function Shoe(size, color){
+  this.size = size;
+  this.color = color;
+}
 
 /**
  * Step 56
@@ -877,6 +1065,10 @@ var Pen = function(color){
  * House class
  * @param {number} stories How many stories tall the house is
  */
+
+ function House(stories){
+  this.stories = stories;
+ }
 
 
 /**
@@ -886,6 +1078,10 @@ var Pen = function(color){
  * @param {boolean} isOn Whether the light is on or off
  */
 
+ function Lightbulb(status){
+  this.isOn = status;
+ }
+
 
 /**
  * Step 58
@@ -893,6 +1089,10 @@ var Pen = function(color){
  * Cookie class
  * @param {string} flavor The cookie's flavor
  */
+
+ function Cookie(flavor){
+  this.flavor = flavor;
+ }
 
 
 /**
@@ -902,6 +1102,10 @@ var Pen = function(color){
  * @param {Array} foods All the foods in the meal
  */
 
+ function Meal(foods){
+  this.foods = foods;
+ }
+
 
 /**
  * Create a new instance of the Classes you defined above, below!
@@ -910,44 +1114,44 @@ var Pen = function(color){
 
 
 // Create 2 different species of animals
-var george;
-var nemo;
+var george = new Animal("Monkey", "male");
+var nemo = new Animal("Fish", "male");
 
 // Create 2 different vehicles
-var civic;
-var forte;
+var civic = new Vehicle("Honda", "Civic");
+var forte = new Vehicle("KIA", "Forte");
 
 // Create 2 shapes with different numbers of sides
-var square;
-var hexagon;
+var square = new Shape(4);
+var hexagon = new Shape(6);
 
 // Create 2 boxes
-var catBox;
-var christmasPresent;
+var catBox = new Box(new Animal("Cat"), true);
+var christmasPresent = new Box(this, false);
 
 // Create 2 doors
-var automaticDoor;
-var bankVault;
+var automaticDoor = new Door(true);
+var bankVault = new Door(false);
 
 // Create 2 shoes
-var rubySlippers;
-var dressShoes;
+var rubySlippers = new Shoe(7, "red");
+var dressShoes = new Shoe(10, "black");
 
 // Create 2 houses
-var singleStory;
-var twoStory;
+var singleStory = new House(1);
+var twoStory = new House(2);
 
 // Create 2 lightbulbs
-var incandescent;
-var halogen;
+var incandescent = new Lightbulb(true);
+var halogen = new Lightbulb(false);
 
 // Create 2 cookies of different flavors
-var chocolateChip;
-var gingerbread;
+var chocolateChip = new Cookie("chocolate");
+var gingerbread = new Cookie("gingerbread");
 
 // Create 2 different meals
-var breakfast;
-var dinner;
+var breakfast = new Meal("cereal" + "milk");
+var dinner = new Meal("fish" + "vegetables");
 
 
  /* Steps 81 to 90
@@ -972,6 +1176,17 @@ var dinner;
  *
  */
 
+ Animal.prototype.isWarmBlooded = function(species){
+  if (this.species === "Monkey" || this.species === "Bird"){
+    return true;
+  }
+  else if (this.species === "Fish"){
+    return false;
+  }
+  return "Could not determine if warm-blooded";
+
+ }
+
 
 /* Step 82
  *
@@ -980,6 +1195,13 @@ var dinner;
  * return "Driving on {streetName}", else return "Driving forward".
  *
  */
+
+ Vehicle.prototype.drive = function(streetName){
+  if (!streetName || streetName === undefined){
+    return "Driving forward";
+  }
+  return "Driving on " + streetName;
+ }
 
 
  /* Step 83
@@ -1000,6 +1222,35 @@ var dinner;
  *
  */
 
+Shape.prototype.getType = function (sides){
+  switch (this.sides){
+    case 3:
+      return "triangle";
+      break;
+    case 4:
+      return "quadrilateral";
+      break;
+    case 5:
+      return "pentagon";
+      break;
+    case 6:
+      return "hexagon";
+      break;
+    case 7:
+      return "heptagon";
+      break;
+    case 8:
+      return "octagon";
+      break;
+    case 9:
+      return "nonagon";
+      break;
+    case 10:
+      return "decagon";
+      break;
+  }
+  return "Could not determine type";
+}
 
 /* Step 84
  *
@@ -1010,6 +1261,17 @@ var dinner;
  *
  */
 
+ Box.prototype.openBox = function (status){
+  if (this.isOpen === false){
+    this.isOpen = true;
+    return true;
+  }
+  if (this.isOpen === true){
+    this.isOpen = true;
+    return false;
+  }
+ }
+
 
  /* Step 85
  *
@@ -1019,6 +1281,17 @@ var dinner;
  *
  */
 
+ Door.prototype.openClose = function (status){
+  if (this.isOpen === false){
+    this.isOpen = true;
+    return true;
+  }
+  if (this.isOpen === true){
+    this.isOpen = false;
+    return false;
+  }
+ }
+
 
 /* Step 86
  *
@@ -1026,6 +1299,10 @@ var dinner;
  * the color and size of the shoe ("Found red shoes of size 7").
  *
  */
+
+ Shoe.prototype.findShoes = function(color, size){
+  return "Found " + this.color + " shoes of size " + this.size;
+ }
 
 
  /* Step 87
@@ -1036,6 +1313,13 @@ var dinner;
  * storiesTooTall, return true, else return false.
  *
  */
+
+ House.prototype.isATallStory = function (storiesTooTall){
+  if (this.stories >= storiesTooTall){
+    return true;
+  }
+  return false;
+ }
 
 
  /* Step 88
@@ -1048,6 +1332,17 @@ var dinner;
  *
  */
 
+Lightbulb.prototype.flipSwitch = function(on){
+  console.log(on);
+  if (on !== "on"){
+    this.On = false;
+    return false;
+  }
+  if (on === "on"){
+    this.On = true;
+    return true;
+  }
+}
 
  /* Step 89
  *
@@ -1056,6 +1351,13 @@ var dinner;
  * and the dayOfTheWeek is "Monday", return true.  Else return false.
  *
  */
+
+ Cookie.prototype.swipedByCookieMonster = function(dayOfTheWeek){
+  if (this.flavor === "chocolate" && dayOfTheWeek === "Monday"){
+    return true;
+  }
+  return false;
+ }
 
 
  /* Step 90
@@ -1071,6 +1373,14 @@ var dinner;
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
  *
  */
+
+ Meal.prototype.containsJunkFood = function(junkFood){
+  this.foods.push(junkFood);
+  if (this.foods.indexOf(junkFood, 0) > -1){
+    return true;
+  }
+  return false;
+ }
 
 
  /* Steps 91 to 100
