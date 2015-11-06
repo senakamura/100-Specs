@@ -363,15 +363,19 @@ var laptopCosts = {
  */
 
  function drink(beer){
-    if (beer.indexOf(beers) > 0){
-      return "This " + beer + " is " + beers[beer] + " and " + beers[beer][1] + ".";
+
+    if(beers[beer] === undefined){
+      return false;
     }
-    if (beers[beer]){
+
+    if(typeof beers[beer] === "string"){
       return "This " + beer + " is " + beers[beer] + ".";
     }
-    return false;
- }
 
+    if(typeof beers[beer] === "object"){
+      return "This " + beer + " is " + beers[beer].join(" and ") + ".";
+    }
+ }
 
 /* Step 24
  *
@@ -403,11 +407,8 @@ var laptopCosts = {
  */
 
  function listLivingOrgClass(str){
-    var list = document.createElement('ul');
-    var item = document.createElement('li');
-    document.list.appendChild(item);
+    return '<ul><li>' + livingOrganismClassification.join('</li><li>') + '</li></ul>';
  }
-
 
 /* Step 26
  *
@@ -762,22 +763,27 @@ function Garden(plantsTotal){
  Scientist.prototype.addDiscipline = function(x){
   this.disciplines.push(x);
   return this.disciplines;
- }
+ };
 
  Scientist.prototype.checkDiscipline = function(x){
   if (this.disciplines.indexOf(x) > -1){
     return true;
   }
-  return false
- }
+  return false;
+ };
 
  Scientist.prototype.addDiscovery = function(x){
   this.discoveries.push(x);
-  if (this.discoveries.length < 1){
-  return "I discovered " + this.discoveries[0] + " and " + this.discoveries[1] + ".";
+  if (this.discoveries.length === 1){
+    return "I discovered " + this.discoveries + ".";
   }
- }
-
+  if (this.discoveries.length === 2){
+    return "I discovered " + this.discoveries.join(" and ") + ".";
+  }
+  if (this.discoveries.length === 3) {
+    return "I discovered " + this.discoveries[0] + ", " + this.discoveries[1] + ", and " + this.discoveries[2] + ".";
+  }
+ };
 
 /* Step 36
  *
@@ -1013,12 +1019,11 @@ function Garden(plantsTotal){
  */
 
  function Shape(sides){
-  if (this.sides < 3 || this.sides !== NaN){
-    this.sides = 0;
-  }
   this.sides = sides;
+  if (this.sides < 3 || typeof this.sides !== 'number'){
+    this.sides = null;
+  }
  }
-
 
 /**
  * Step 53
@@ -1335,14 +1340,14 @@ Shape.prototype.getType = function (sides){
 Lightbulb.prototype.flipSwitch = function(on){
   console.log(on);
   if (on !== "on"){
-    this.On = false;
+    this.isOn = false;
     return false;
   }
   if (on === "on"){
-    this.On = true;
+    this.isOn = true;
     return true;
   }
-}
+};
 
  /* Step 89
  *
@@ -1374,14 +1379,15 @@ Lightbulb.prototype.flipSwitch = function(on){
  *
  */
 
- Meal.prototype.containsJunkFood = function(junkFood){
-  this.foods.push(junkFood);
-  if (this.foods.indexOf(junkFood, 0) > -1){
-    return true;
+Meal.prototype.containsJunkFood = function() {
+  var junkFood = ['chips', 'soda', 'ice cream', 'popcorn', 'candy'];
+  for(var i=0; i<junkFood.length; i++){
+    if(this.foods.indexOf(junkFood[i]) !== -1){
+      return true;
+    }
   }
   return false;
- }
-
+};
 
  /* Steps 91 to 100
  *
@@ -1396,9 +1402,9 @@ Lightbulb.prototype.flipSwitch = function(on){
  * and assign the values to each variable below.
  *
  */
-var warmBloodedAnimal;
-var coldBloodedAnimal;
-var notWarmOrColdAnimal;
+var warmBloodedAnimal = new Animal('Monkey', null).isWarmBlooded();
+var coldBloodedAnimal = new Animal('Fish', null).isWarmBlooded();
+var notWarmOrColdAnimal = new Animal('Zubat', null).isWarmBlooded();
 
 
 /* Step 92
@@ -1407,8 +1413,8 @@ var notWarmOrColdAnimal;
  * and assign the values to each variable below.
  *
  */
-var streetDriving;
-var forwardDriving;
+var streetDriving = new Vehicle('Nissan', 'Skyline').drive('Tokyo Ave.');
+var forwardDriving = new Vehicle('Kawasaki', 'Ninja').drive('');
 
 
  /* Step 93
@@ -1417,8 +1423,8 @@ var forwardDriving;
  * and assign the values to each variable below.
  *
  */
-var decagon;
-var polygon;
+var decagon = new Shape(10).getType();
+var polygon = new Shape(13).getType();
 
 
 /* Step 94
@@ -1427,8 +1433,8 @@ var polygon;
  * and assign the values to each variable below.
  *
  */
-var openAClosedBox;
-var closeAnOpenBox;
+var openAClosedBox = new Box('cardboard', false).openBox();
+var closeAnOpenBox = new Box('lava', true).openBox();
 
 
  /* Step 95
@@ -1437,8 +1443,8 @@ var closeAnOpenBox;
  * and assign the values to each variable below.
  *
  */
-var openAClosedDoor;
-var closeAnOpenDoor;
+var openAClosedDoor = new Door(false).openClose();
+var closeAnOpenDoor = new Door(true).openClose();
 
 
 /* Step 96
@@ -1447,8 +1453,8 @@ var closeAnOpenDoor;
  * and assign the values to each variable below.
  *
  */
-var redShoesSize7;
-var blackShoesSize10;
+var redShoesSize7 = new Shoe(7, 'red').findShoes();
+var blackShoesSize10 = new Shoe(10, 'black').findShoes();
 
 
  /* Step 97
@@ -1457,8 +1463,8 @@ var blackShoesSize10;
  * and assign the values to each variable below.
  *
  */
-var farTooTallAStory;
-var shortStory;
+var farTooTallAStory = new House(10).isATallStory(5);
+var shortStory = new House(2).isATallStory(5);
 
 
  /* Step 98
@@ -1467,8 +1473,8 @@ var shortStory;
  * and assign the values to each variable below.
  *
  */
-var kitchenLightsOn;
-var porchLightsOff;
+var kitchenLightsOn = new Lightbulb(false).flipSwitch('on');
+var porchLightsOff = new Lightbulb(true).flipSwitch('off');
 
 
  /* Step 99
@@ -1477,8 +1483,8 @@ var porchLightsOff;
  * and assign the values to each variable below.
  *
  */
-var cookieMonsterPwns;
-var cookieMonsterBlocked;
+var cookieMonsterPwns = new Cookie('chocolate').swipedByCookieMonster('Monday');
+var cookieMonsterBlocked = new Cookie('raisin').swipedByCookieMonster('Tuesday');
 
 
  /* Step 100
@@ -1487,5 +1493,5 @@ var cookieMonsterBlocked;
  * and assign the values to each variable below.
  *
  */
-var badForYou;
-var goodForYou;
+var badForYou = new Meal(['brocolli', 'chicken', 'candy']).containsJunkFood();
+var goodForYou = new Meal(['tomato', 'spinach', 'pasta']).containsJunkFood();
